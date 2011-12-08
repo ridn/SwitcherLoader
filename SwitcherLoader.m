@@ -60,6 +60,7 @@ static BOOL hasLoadedPlugins = NO;
     
 }
 -(void)loadItems {
+    NSLog(@"Loading plugins!!!!!!");
     if(!hasLoadedPlugins) {
     [plugins removeAllObjects];
     [identifiers removeAllObjects];
@@ -110,6 +111,7 @@ static BOOL hasLoadedPlugins = NO;
             [array addObject:pid];
         
     }
+    
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:SETTINGS_PATH];
     if ([[dict objectForKey:@"Plugins"]objectForKey:@"Enabled"] ) {
     NSArray *dictArray = [NSArray arrayWithArray:[[dict objectForKey:@"Plugins"]objectForKey:@"Enabled"]];
@@ -129,6 +131,9 @@ static BOOL hasLoadedPlugins = NO;
 -(UIView *)viewForId:(NSString *)plugin_id {
     
     NSUInteger index = [identifiers indexOfObject:plugin_id];
+    if (index >= 0) {
+        
+    
     for(int i = 0; i <[defaultViews count]; i++) {
         if(plugin_id == [[defaultViews objectAtIndex:i]plugin_id])
             return [defaultViews objectAtIndex:i];
@@ -140,7 +145,7 @@ static BOOL hasLoadedPlugins = NO;
         
         
     }
-    
+}
     return nil;
     
 }
@@ -155,6 +160,7 @@ static BOOL hasLoadedPlugins = NO;
             [array addObject:pid];
         
     }
+    
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:SETTINGS_PATH];
     if ([[dict objectForKey:@"Plugins"]objectForKey:@"Disabled"] ) {
         NSArray *dictArray = [NSArray arrayWithArray:[[dict objectForKey:@"Plugins"]objectForKey:@"Disabled"]];

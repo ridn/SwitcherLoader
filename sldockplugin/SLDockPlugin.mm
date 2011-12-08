@@ -9,53 +9,47 @@
 
 @interface SLDockPlugin_view : UIView<SBIconViewDelegate> {
     
-    NSMutableArray *icons;
 }
--(NSMutableArray *)icons;
 @end
 @implementation SLDockPlugin_view
 -(id)initWithFrame:(CGRect)frame {
     if((self = [super initWithFrame:frame])) {
-        
+
     }
     return self;
 }
 
 -(void)layoutSubviews {
+    NSLog(@"OVERALL");
     for (UIView *view in self.subviews) {
         [view removeFromSuperview];
         [view release];
     }
+    NSDictionary *dict = [[NSDictionary alloc]initWithContentsOfFile:@"/var/mobile/Library/SpringBoard/IconState.plist"];
+    
+    NSArray *icondict = [[NSArray alloc]initWithArray:[dict objectForKey:@"buttonBar"]];
+    
 
-    [self icons];
+    
     UIImageView *background = [[UIImageView alloc]initWithFrame:CGRectMake(0,self.frame.size.height/2,self.frame.size.width,self.frame.size.height/2)];
     background.image = [objc_getClass("SBDockIconListView") backgroundImageForOrientation:1];
     [self addSubview:background];
-        for (unsigned int i = 0; i < [icons count]; i++) {
-        SBIconView *icon = [icons objectAtIndex:i];
-        icon.center = CGPointMake(i*(self.frame.size.width/4)+ (icon.frame.size.width/1.5), self.center.y + 5);
-        [self addSubview:icon];
+        for (unsigned int i = 0; i < [icondict count]; i++) {
+            SBIcon *sbicon = [[objc_getClass("SBIconModel") sharedInstance] applicationIconForDisplayIdentifier:[icondict objectAtIndex:i]];
+            SBIconView *view = [[objc_getClass("SBIconView") alloc]initWithDefaultSize];
+            [view setIcon:sbicon];
+            view.delegate = self;
+            NSLog(@"view1");
+
+        view.center = CGPointMake(i*(self.frame.size.width/4)+ (view.frame.size.width/1.5), self.center.y + 5);
+            NSLog(@"View2");
+        [self addSubview:view];
     }    
+    [icondict release];
+    [dict release];
 }
 
--(NSMutableArray *)icons {
-    if(!icons)
-        icons = [[NSMutableArray alloc]init];
-    [icons removeAllObjects];
 
-    NSArray *icondict = [NSArray arrayWithArray:[[[objc_getClass("SBIconModel") sharedInstance]iconState]objectForKey:@"buttonBar"]];
-    
-    for (unsigned int i = 0; i < [icondict count]; i++) {
-        SBIcon *sbicon = [[objc_getClass("SBIconModel") sharedInstance] applicationIconForDisplayIdentifier:[icondict objectAtIndex:i]];
-        SBIconView *view = [[objc_getClass("SBIconView") alloc]initWithDefaultSize];
-        [view setIcon:sbicon];
-        view.delegate = self;
-        [icons addObject:view];
-    }
-    
-    return icons;
-    
-}
 - (BOOL)iconAllowJitter:(SBIconView *)arg1 {
     
     return YES;
