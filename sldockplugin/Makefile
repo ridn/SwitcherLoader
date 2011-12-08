@@ -1,4 +1,4 @@
-include theos/makefiles/common.mk
+include /opt/theos/makefiles/common.mk
 BUNDLE_NAME = SLDockPlugin
 SLDockPlugin_FILES = SLDockPlugin.mm
 SLDockPlugin_INSTALL_PATH = /Library/SwitcherLoader/Plugins

@@ -1,4 +1,4 @@
-include theos/makefiles/common.mk
+include /opt/theos/makefiles/common.mk
 
 BUNDLE_NAME = SwitcherLoaderSettings
 SwitcherLoaderSettings_FILES = SwitcherLoaderSettings.mm

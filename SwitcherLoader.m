@@ -51,7 +51,14 @@ static BOOL hasLoadedPlugins = NO;
     
 }
 
-
+-(BOOL)isOSVersionSupported:(NSString *)minOS {
+    NSString *systemVersion = [[UIDevice currentDevice] systemVersion];
+    if (!minOS || minOS.length < 1 ||[systemVersion compare:minOS options:NSNumericSearch] != NSOrderedAscending)
+        return YES;
+    else
+        return NO;
+    
+}
 -(void)loadItems {
     if(!hasLoadedPlugins) {
     [plugins removeAllObjects];
@@ -65,6 +72,9 @@ static BOOL hasLoadedPlugins = NO;
         if([[path pathExtension]isEqualToString:@"bundle"]) {
             NSBundle *bundle = [NSBundle bundleWithPath:path];
             NSError *error = nil;
+            if ([self isOSVersionSupported:[bundle objectForInfoDictionaryKey:@"MinimumOSVersion"]] ) {
+                
+            
             [bundle loadAndReturnError:&error];
             if(!error) {
                 UIView *view = [[[bundle principalClass] alloc]initWithFrame:CGRectMake(0,0,320,94)];
@@ -73,6 +83,7 @@ static BOOL hasLoadedPlugins = NO;
 
                 [plugins addObject:view];
             [view release];
+            }
             }
             
         }
