@@ -20,7 +20,6 @@
 }
 
 -(void)layoutSubviews {
-    NSLog(@"OVERALL");
     for (UIView *view in self.subviews) {
         [view removeFromSuperview];
         [view release];
