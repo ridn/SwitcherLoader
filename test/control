@@ -1,9 +1,0 @@
-Package: com.yourcompany.test
-Name: test
-Depends: mobilesubstrate, com.fr0zensun.libswitcher
-Version: 0.0.1
-Architecture: iphoneos-arm
-Description: An awesome libswitcher plugin
-Maintainer: Ryan
-Author: Ryan
-Section: Tweaks
