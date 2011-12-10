@@ -1,6 +1,7 @@
 #import <Preferences/Preferences.h>
 
 #import <AppSupport/AppSupport.h>
+#import "admob/GADBannerView.h"
 #import <objc/runtime.h>
 #define SETTINGS_PATH @"/var/mobile/Library/Preferences/com.fr0zensun.switcherloader.plist"
 #define PLUGIN_PATH @"/Library/SwitcherLoader/Plugins"
@@ -30,6 +31,8 @@
     NSMutableArray *enabledPlugins;
     NSMutableArray *disabledPlugins;
     CPDistributedMessagingCenter *messagingCenter;
+    GADBannerView *adView;
+
 
 }
 -(void)openPayPal:(id)arg1;
@@ -45,24 +48,42 @@
 -(id)init {
     if((self = [super init])) {
         messagingCenter = [CPDistributedMessagingCenter centerNamed:@"com.fr0zensun.switcherloader.message.center"];
+        [messagingCenter sendMessageName:@"LoadPlugins" userInfo:nil];
         
+        NSDictionary *plugins = [messagingCenter sendMessageAndReceiveReplyName:@"Plugins" userInfo:nil/* optional dictionary */];
+        enabledPlugins = [[NSMutableArray alloc]initWithArray:[plugins objectForKey:@"EnabledPlugins"]];
+        disabledPlugins = [[NSMutableArray alloc]initWithArray:[plugins objectForKey:@"DisabledPlugins"]];
     }
     return self;
 }
 - (void)viewDidLoad {
+    [super viewDidLoad];
+
     _table.editing = YES;
     _table.allowsSelectionDuringEditing = YES;
 
 
    // _table.allowsSelection = NO;
    
-    [messagingCenter sendMessageName:@"LoadPlugins" userInfo:nil];
+   
+    adView = [[GADBannerView alloc]initWithFrame:CGRectMake(0.0,0,
+                                            GAD_SIZE_320x50.width,
+                                            GAD_SIZE_320x50.height)];
 
-    NSDictionary *plugins = [messagingCenter sendMessageAndReceiveReplyName:@"Plugins" userInfo:nil/* optional dictionary */];
-    enabledPlugins = [[NSMutableArray alloc]initWithArray:[plugins objectForKey:@"EnabledPlugins"]];
-    disabledPlugins = [[NSMutableArray alloc]initWithArray:[plugins objectForKey:@"DisabledPlugins"]];
+    adView.adUnitID = @"a14ee148032c6f2";
+    _table.scrollsToTop = YES;
+    adView.rootViewController = self;
+    GADRequest *request = [GADRequest request];
+    
+    [adView loadRequest:request];
+    _table.tableFooterView = adView;
 
-    [super viewDidLoad];
+    
+}
+-(void)viewDidUnload {
+    [adView release];
+    [super viewDidUnload];
+
     
 }
 - (id)specifiers {
@@ -211,6 +232,11 @@
     [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ZSKQ3PSALM7NS&lc=US&item_name=Ryan%20Coffman&item_number=switcher_loader&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"]];
     
 }
+-(void)openDocs {
+    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://github.com/Fr0zenSun/SwitcherLoader"]];
+
+    
+}
 -(NSString *)pathForImage:(NSString *)bundle_id {
     NSFileManager *fm = [NSFileManager defaultManager];
     NSArray *dirContents = [fm contentsOfDirectoryAtPath:PLUGIN_PATH error:nil];
@@ -230,7 +256,7 @@
             
         }
     }
-    return @"/Library/SwitcherLoader/defaulticon.png";
+    return @"/Library/PreferenceBundles/SwitcherLoaderSettings.bundle/SLIcon.png";
     
 }
 -(void)dealloc {

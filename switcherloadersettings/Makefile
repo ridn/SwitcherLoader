@@ -3,8 +3,9 @@ include /opt/theos/makefiles/common.mk
 BUNDLE_NAME = SwitcherLoaderSettings
 SwitcherLoaderSettings_FILES = SwitcherLoaderSettings.mm
 SwitcherLoaderSettings_INSTALL_PATH = /Library/PreferenceBundles
-SwitcherLoaderSettings_FRAMEWORKS = UIKit
+SwitcherLoaderSettings_FRAMEWORKS = UIKit AudioToolbox MessageUI SystemConfiguration CoreGraphics
 SwitcherLoaderSettings_PRIVATE_FRAMEWORKS = Preferences AppSupport
+SwitcherLoaderSettings_OBJ_FILES = libGoogleAdMobAds.o
 include $(THEOS_MAKE_PATH)/bundle.mk
 
 internal-stage::

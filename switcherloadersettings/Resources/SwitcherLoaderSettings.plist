@@ -11,8 +11,12 @@
 		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
+			<key>icon</key>
+			<string>apidocs.png</string>
 			<key>label</key>
 			<string>API Documentation</string>
+			<key>action</key>
+			<string>openDocs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -27,12 +31,16 @@
 		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
+			<key>icon</key>
+			<string>twitter.png</string>
 			<key>label</key>
 			<string>Follow on Twitter</string>
 			<key>action</key>
 			<string>openTwitter:</string>
 		</dict>
 		<dict>
+			<key>icon</key>
+			<string>smiley.png</string>
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>label</key>
@@ -42,6 +50,6 @@
 		</dict>
 	</array>
 	<key>title</key>
-	<string>SwitcherLoaderSettings</string>
+	<string>SwitcherLoader</string>
 </dict>
 </plist>

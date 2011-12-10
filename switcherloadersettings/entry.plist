@@ -1,10 +1,10 @@
 {
-    entry = {
-	bundle = SwitcherLoaderSettings;
-	cell = PSLinkCell;
-	detail = SwitcherLoaderSettingsListController;
-	icon = SwitcherLoaderSettings.png;
-	isController = 1;
-	label = SwitcherLoaderSettings;
-    };
+	entry = {
+		bundle = "SwitcherLoaderSettings";
+		cell = PSLinkCell;
+		detail = "SwitcherLoaderSettingsListController";
+		icon = "SLIcon.png";
+		isController = 1;
+		label = SwitcherLoader;
+	};
 }
