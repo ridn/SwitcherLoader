@@ -25,7 +25,7 @@ file 32 Resources/Info.plist
 	<key>DTPlatformName</key>
 	<string>iphoneos</string>
 	<key>MinimumOSVersion</key>
-	<string>4.0</string>
+	<string>4.2</string>
 	<key>NSPrincipalClass</key>
 	<string>@@PROJECTNAME@@_view</string>
 	<key>name</key>
@@ -67,5 +67,5 @@ Architecture: iphoneos-arm
 Description: An awesome SwitcherLoader plugin
 Maintainer: @@USER@@
 Author: @@USER@@
-Section: Tweaks
+Section: Addons (SwitcherLoader)
 
