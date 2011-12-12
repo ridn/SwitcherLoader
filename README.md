@@ -19,5 +19,5 @@ UIView
 * Currently there is no support for viewDidAppear and viewDidDisappear methods
 
 ________
-* You can easily start a plugin by using this THEOS nic template: [https://github.com/Fr0zenSun/SwitcherLoader/blob/master/SwitcherLoader_plugin.nic](https://github.com/Fr0zenSun/SwitcherLoader/blob/master/SwitcherLoader_plugin.nic "github/")
+* You can easily start a plugin by using this theos nic template: [https://github.com/Fr0zenSun/SwitcherLoader/blob/master/SwitcherLoader_plugin.nic](https://github.com/Fr0zenSun/SwitcherLoader/blob/master/SwitcherLoader_plugin.nic "github/")
 * [Follow me on twitter](http://twitter.com/fr0zensun"Twitter")
